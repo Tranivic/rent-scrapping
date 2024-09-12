@@ -9,6 +9,7 @@
   },
   "_moduleAliases": {
     "@": ".",
+    "@modules": "./modules",
     "@config": "./config",
     "@routes": "./routes"
   },
