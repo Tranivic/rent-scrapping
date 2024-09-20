@@ -1,0 +1,22 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Tasks {
+  id           String   @id @default(uuid())
+  date         DateTime @default(now())
+  slug         String   @unique
+  pickDate     DateTime @map("pick_date")
+  pickLocation String   @map("pick_location")
+  pickHour     String   @map("pick_hour")
+  dropDate     DateTime @map("drop_date")
+  dropHour     String   @map("drop_hour")
+  carGroup     String?  @map("car_group")
+
+  @@map("task_queue")
+}
