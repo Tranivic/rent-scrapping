@@ -7,10 +7,10 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Tasks {
+model Workers {
   id           String   @id @default(uuid())
   date         DateTime @default(now())
-  slug         String   @unique
+  scrapRole    String   @map("scrap_role")
   pickDate     DateTime @map("pick_date")
   pickLocation String   @map("pick_location")
   pickHour     String   @map("pick_hour")
@@ -18,5 +18,5 @@ model Tasks {
   dropHour     String   @map("drop_hour")
   carGroup     String?  @map("car_group")
 
-  @@map("task_queue")
+  @@map("workers_queue")
 }
