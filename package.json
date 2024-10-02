@@ -13,7 +13,10 @@
     "@": ".",
     "@modules": "./modules",
     "@config": "./config",
-    "@routes": "./routes"
+    "@routes": "./routes",
+    "@controller": "./controller",
+    "@utils": "./utils",
+    "@data": "./data"
   },
   "dependencies": {
     "@prisma/client": "^5.19.1",
