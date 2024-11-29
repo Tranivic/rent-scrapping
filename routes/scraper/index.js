@@ -1,5 +1,5 @@
 const scraper = require('express').Router();
-const unidas = require('@routes/scraper/unidas.js');
+const unidas = require('@controller/unidas');
 
 scraper.get('/', async (req, res) => {
     try {
@@ -8,6 +8,16 @@ scraper.get('/', async (req, res) => {
         res.status(500).json({ status: 'error', msg: 'error' });
     }
 });
-scraper.use('/unidas', unidas);
+
+scraper.get('/scrap', async (req, res) => {
+    try {
+        const response = await unidas.unidas_price();
+        res.status(200).json(response);
+    } catch (e) {
+        console.error(e);
+        res.status(500).json({ status: 'error', msg: 'Error in scrap route...' });
+    }
+});
+
 
 module.exports = scraper;

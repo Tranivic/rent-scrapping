@@ -1,4 +1,5 @@
 const generateRandomNumber = require('@mixins/utils').generate_random_number;
+const proxies = require('@data/proxies.json');
 
 exports.get_stored_proxy = (randomize, proxyIndex) => {
     const proxyList = require('@public/proxies/proxies.json');
@@ -26,4 +27,14 @@ exports.autenticate_proxy = async (page, username, password) => {
         username: username,
         password: password,
     });
+};
+
+exports.check_working_proxies = async (url) => {
+    const responses = proxies.map(async (proxy, index) => {
+        const { browser, page } = await launch_instance(true, proxy, false);
+        await page.goto(url);
+        console.log(`Proxy ${index} - ${proxy} is working...`);
+        await browser.close();
+    });
+    await Promise.all(responses);
 };
