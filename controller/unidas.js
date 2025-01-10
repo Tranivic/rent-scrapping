@@ -3,16 +3,15 @@ let reservationParams = require('@data/reservation_params.json');
 
 const unidas_url = 'https://www.unidas.com.br/reserva/passo-1';
 
-exports.unidas_price = async () => {
+exports.unidas_price = async (dateOutParam,hourOutParam,dateDevParam,hourDevParam) => {
     return new Promise(async (resolve, reject) => {
         const { browser, page } = await launchInstance(false, null);
         try {
-            reservationParams.stepOne.dateOut = '30/11/2024';
-            reservationParams.stepOne.hourOut = '08:00';
-            reservationParams.stepOne.dateDev = '02/12/2024';
-            reservationParams.stepOne.hourDev = '08:00';
+            reservationParams.stepOne.dateOut = dateOutParam;
+            reservationParams.stepOne.hourOut = hourOutParam;
+            reservationParams.stepOne.dateDev = dateDevParam;
+            reservationParams.stepOne.hourDev = hourDevParam;
             const { dateOut, hourOut, dateDev, hourDev } = reservationParams.stepOne;
-
             await page.goto(unidas_url, { waitUntil: 'domcontentloaded' });
             await page.evaluate((reservationParams) => {
                 sessionStorage.setItem('reservationParameters', JSON.stringify(reservationParams));
@@ -30,7 +29,6 @@ exports.unidas_price = async () => {
                     await page.waitForTimeout(3000);
                     buttonIsInScreen = await page.$$('.continue');
                 }
-                console.log('Exiting...');
             }
             await clickButtonUntilDone(button[1]);
             const availableCars = await page.evaluate(() => {
@@ -64,12 +62,11 @@ exports.unidas_price = async () => {
             };
             resolve(response);
         } catch (e) {
-            console.error(e);
             reject({
                 status: 500,
-                msg: 'Scraping failed',
-                error: e.message,
+                message: 'Scraping failed',
             });
+            console.error(e);
         } finally {
             browser.close();
         }
