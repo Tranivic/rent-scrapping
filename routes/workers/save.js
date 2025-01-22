@@ -7,14 +7,16 @@ router.post('/', async (req, res) => {
     const prisma = new PrismaClient();
     if(req.body) {
         try {
+            const { dateOut, hourOut, dateDev, hourDev, locationOut, locationDev } = req.query;
+            const intervalMs = +req.query.intervalMs? +req.query.intervalMs : 0;
             const data = {
-                pickDate: new Date(req.body.pickDate),
-                pickLocation: req.body.pickLocation,
-                pickHour: req.body.pickHour,
-                dropDate: new Date(req.body.dropDate),
-                dropHour: req.body.dropHour,
-                carGroup: req.body.carGroup,
-                scrapRole: req.body.scrapRole
+                dateOut: dateOut,
+                hourOut: hourOut,
+                dateDev: dateDev,
+                hourDev: hourDev,
+                locationOut: locationOut || "",
+                locationDev: locationDev || "",
+                intervalMs: intervalMs
             }
             const savedWorker = await prisma.Workers.create({ data });
             res.status(200).json({ status: 'success', msg: 'Worker saved successfully', data: savedWorker });
