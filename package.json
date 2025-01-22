@@ -6,8 +6,8 @@
   "scripts": {
     "start": "node server.js",
     "dockerInstall": "npm install && npx puppeteer browsers install chrome",
-    "prismaSQLITE": "npx prisma init --datasource-provider SQLite",
-    "prismaMigrate": "npx prisma migrate dev"
+    "prisma:sqlite": "npx prisma init --datasource-provider SQLite",
+    "prisma:migrate": "npx prisma migrate dev"
   },
   "_moduleAliases": {
     "@": ".",
