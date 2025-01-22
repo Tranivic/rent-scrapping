@@ -8,15 +8,14 @@ datasource db {
 }
 
 model Workers {
-  id           String   @id @default(uuid())
-  date         DateTime @default(now())
-  scrapRole    String   @map("scrap_role")
-  pickDate     DateTime @map("pick_date")
-  pickLocation String   @map("pick_location")
-  pickHour     String   @map("pick_hour")
-  dropDate     DateTime @map("drop_date")
-  dropHour     String   @map("drop_hour")
-  carGroup     String?  @map("car_group")
+  id          String  @id @default(uuid())
+  dateOut     String  @map("date_out")
+  hourOut     String  @map("hour_out")
+  dateDev     String  @map("date_dev")
+  hourDev     String  @map("hour_dev")
+  locationOut String? @map("location_out")
+  locationDev String? @map("location_dev")
+  intervalMs  Int     @map("interval_ms")
 
   @@map("workers_queue")
 }
