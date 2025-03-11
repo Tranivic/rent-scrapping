@@ -1,3 +1,4 @@
+require('module-alias/register');
 const launchInstance = require('@modules/puppeteer').launch_instance;
 let reservationParams = require('@data/reservation_params.json');
 
@@ -5,7 +6,7 @@ const unidas_url = 'https://www.unidas.com.br/reserva/passo-1';
 
 exports.unidas_price = async (dateOutParam,hourOutParam,dateDevParam,hourDevParam) => {
     return new Promise(async (resolve, reject) => {
-        const { browser, page } = await launchInstance(false, null);
+        const { browser, page } = await launchInstance(false, null, false);
         try {
             reservationParams.stepOne.dateOut = dateOutParam;
             reservationParams.stepOne.hourOut = hourOutParam;

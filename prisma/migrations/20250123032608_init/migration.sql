@@ -9,3 +9,10 @@ CREATE TABLE "workers_queue" (
     "location_dev" TEXT,
     "interval_ms" INTEGER NOT NULL
 );
+
+-- CreateTable
+CREATE TABLE "results_table" (
+    "id" TEXT NOT NULL PRIMARY KEY,
+    "worker_ID" TEXT NOT NULL,
+    "prices_json" TEXT NOT NULL
+);
